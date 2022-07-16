@@ -1,0 +1,12 @@
+﻿@model List<Genre>
+
+<div class="list-group">
+    <a href="/movies/list" class="list-group-item list-group-item-action @(ViewBag.SelectedGenre==null?"active":"")">Tüm Filmler</a>
+
+    @foreach (var genre in Model)
+    {
+        <a href="/movies/list/@genre.GenreId" 
+           class="list-group-item list-group-item-action @(ViewBag.SelectedGenre==genre.GenreId.ToString()?"active":"")">
+            @genre.Name </a>
+    }
+</div>

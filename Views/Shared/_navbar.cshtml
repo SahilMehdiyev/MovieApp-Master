@@ -1,0 +1,69 @@
+﻿
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img id="MDB-logo"
+                 src="https://icon-library.com/images/movie-icon-app/movie-icon-app-17.jpg"
+                 alt="MDB Logo"
+                 draggable="false"
+                 height="30" />
+        </a>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/movies/list">Filmler</a>
+                </li>
+                <li class="nav-item">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        @if (User.IsInRole("admin"))
+                        {
+                            @await Html.PartialAsync("_navbarAdmin")
+                        }
+                        else
+                        {
+                            <div class="nav-link active">
+                                <div class="dropdown">
+                                    <button class=" dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span>@User.Identity.Name</span>
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Hesabım</a></li>
+                                        <li><a class="dropdown-item" href="#">İzleme Listem</a></li>
+                                        <li><a class="dropdown-item" href="/security/logout">Çıkış Yap</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        }
+
+
+                    }
+                    else
+                    {
+                        <a class="nav-link" href="/security/login">Giriş Yap</a>
+
+<li class="nav-item">
+                        <a class="nav-link" href="/security/register">Kayıt Ol</a>
+                    </li>
+                }
+
+
+
+                </ul>
+            <form class=" align-items-center w-50 form-search" action="/movies/list" method="get">
+                <div class="input-group">
+
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Search"
+                           aria-label="Search"
+                           name="q" />
+
+
+                </div>
+                <a href="#!" class="text-white"><i class="fas fa-search pl-3"></i></a>
+            </form>
+           
+        </div>
+    </div>
+</nav>

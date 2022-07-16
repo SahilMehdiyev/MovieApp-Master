@@ -1,0 +1,63 @@
+﻿@model AdminEditMovieViewModel
+
+<h1>Edit Movie</h1>
+<hr />
+<form method="post" asp-controller="Admin" asp-action="MovieUpdate" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col-md-8">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" name="MovieId" value="@Model.MovieId" />
+            <div class="mb-3">
+                <label asp-for="Title"></label>
+                <input asp-for="Title" class="form-control" value="@Model.Title" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control">@Model.Description</textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="hidden" name="ImageUrl" value="@Model.ImageUrl" />
+                <input type="file" name="file" class="form-control" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+        </div>
+        <div class="col-md-4">
+
+            @foreach (var item in (List<Genre>)ViewBag.Genres)
+            {
+                <div class="form-check">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="genreIds"
+                           value="@item.GenreId"
+                           id="genre_@(item.GenreId)"
+                           @(Model.GenreIds!=null?Model.GenreIds.Any(i => i == item.GenreId) ? "checked" : "":"")>
+                    <label class="form-check-label" for="genre_@(item.GenreId)">
+                        @item.Name
+                    </label>
+                </div>
+
+            }
+            <span asp-validation-for="GenreIds" class="text-danger"></span>
+
+            <div class="mt-3">
+                <img src="/img/@Model.ImageUrl" width="150" />
+            </div>
+
+
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script src="https://cdn.ckeditor.com/4.16.0/basic/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('Description');
+    </script>
+}
+

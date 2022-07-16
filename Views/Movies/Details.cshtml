@@ -1,0 +1,15 @@
+﻿@model Movie
+
+<div class="card">
+    <div class="row">
+        <div class="col-md-3">
+            <img src="/img/@Model.ImageUrl" class="card-img"/>
+        </div>
+        <div class="col-md-9">
+            <div class="card-body">
+                <h5 class="card-title">@Model.Title</h5>
+                <p class="card-text">@Html.Raw(Model.Description)</p>
+            </div>
+        </div>
+    </div>
+</div>
